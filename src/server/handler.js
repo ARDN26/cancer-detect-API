@@ -67,7 +67,7 @@ async function postPredictHandler(request, h) {
 
 async function historiesHandler(request, h) {
     try {
-        const histories = await getPredictions(); // Mengambil semua data dari storage
+        const histories = await getPredictions(); 
 
         if (!histories || histories.length === 0) {
             return h.response({

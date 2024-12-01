@@ -23,11 +23,10 @@ const PayloadTooLargeError = require('../exceptions/TolargeError');
 
     server.route(routes);
 
-    // Middleware untuk menangani error
     server.ext('onPreResponse', function (request, h) {
         const response = request.response;
 
-        // Tangani error dari jenis ClientError (InputError, PredictionError, PayloadTooLargeError)
+        
         if (
             response instanceof InputError ||
             response instanceof PredictionError ||
@@ -41,16 +40,16 @@ const PayloadTooLargeError = require('../exceptions/TolargeError');
             return newResponse;
         }
 
-        // Tangani error lain (Boom error)
+        
         if (response.isBoom) {
             const newResponse = h.response({
                 status: 'fail',
-                message: response.output.payload.message, // Mengambil pesan error
+                message: response.output.payload.message, 
             });
-            newResponse.code(response.output.statusCode); // Status kode dari Boom
+            newResponse.code(response.output.statusCode); 
             return newResponse;
         }
-        // Jika tidak ada error, lanjutkan respons normal
+        
         return h.continue;
     });
 
